@@ -254,7 +254,7 @@ public class InventoryTest extends TestCase {
 	/*
 	 * Tests the addChocolate method with a zero string.
 	 */
-	public void testAddChocolatZero() throws Exception {
+	public void testAddChocolateZero() throws Exception {
 		CuT.addChocolate("0");
 		assertEquals("Chocolate was modified.",15,this.CuT.getChocolate());
 	}
@@ -265,5 +265,85 @@ public class InventoryTest extends TestCase {
 	public void testAddChocolatePositiveInteger() throws Exception {
 		CuT.addChocolate("1");
 		assertEquals("Chocolate wasn't changed correctly.",16,this.CuT.getChocolate());
+	}
+
+	/*
+	 * Tests the addCoffee method with an empty string.
+	 */
+	public void testAddCoffeeEmptyString() throws Exception {
+		Inventory CuT = this.CuT;
+		assertInventoryException(new Callable() {
+			@Override
+			public Object call() throws Exception {
+				CuT.addCoffee("");
+				return null;
+			}
+		});
+		
+		assertEquals("Coffee was modified.",15,this.CuT.getCoffee());
+	}
+	
+	/*
+	 * Tests the addCoffee method with a non-number string.
+	 */
+	public void testAddCoffeeNonNumberString() throws Exception {
+		Inventory CuT = this.CuT;
+		assertInventoryException(new Callable() {
+			@Override
+			public Object call() throws Exception {
+				CuT.addCoffee("Test");
+				return null;
+			}
+		});
+		
+		assertEquals("Coffee was modified.",15,this.CuT.getCoffee());
+	}
+	
+	/*
+	 * Tests the addCoffee method with a float string.
+	 */
+	public void testAddCoffeeFloat() throws Exception {
+		Inventory CuT = this.CuT;
+		assertInventoryException(new Callable() {
+			@Override
+			public Object call() throws Exception {
+				CuT.addCoffee("3.2");
+				return null;
+			}
+		});
+		
+		assertEquals("Coffee was modified.",15,this.CuT.getCoffee());
+	}
+	
+	/*
+	 * Tests the addCoffee method with a negative integer string.
+	 */
+	public void testAddCoffeeNegativeInteger() throws Exception {
+		Inventory CuT = this.CuT;
+		assertInventoryException(new Callable() {
+			@Override
+			public Object call() throws Exception {
+				CuT.addCoffee("-1");
+				return null;
+			}
+		});
+		
+		assertEquals("Coffee was modified.",15,this.CuT.getCoffee());
+	}
+	
+	/*
+	 * Tests the addCoffee method with a zero string.
+	 */
+	public void testAddCoffeeZero() throws Exception {
+		CuT.addCoffee("0");
+		assertEquals("Coffee was modified.",15,this.CuT.getCoffee());
+	}
+
+	/*
+	 * Tests the addCoffee method with a positive integer string.
+	 */
+	public void testAddCoffeePositiveInteger() throws Exception {
+		CuT.addCoffee("1");
+		assertEquals("Coffee wasn't changed correctly.",16,this.CuT.getCoffee());
 	}
 }
