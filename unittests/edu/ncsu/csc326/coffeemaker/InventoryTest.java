@@ -7,10 +7,12 @@ package edu.ncsu.csc326.coffeemaker;
 import java.util.concurrent.Callable;
 
 import edu.ncsu.csc326.coffeemaker.exceptions.InventoryException;
+import edu.ncsu.csc326.coffeemaker.exceptions.RecipeException;
 import junit.framework.TestCase;
 
 public class InventoryTest extends TestCase {
 	private Inventory CuT;
+	private Recipe recipe;
 	
 	/*
 	 * Asserts that an InventoryException was thrown.
@@ -31,6 +33,13 @@ public class InventoryTest extends TestCase {
 	protected void setUp() throws Exception {
 		// Create the inventory. Used by all tests.
 		this.CuT = new Inventory();
+		
+		// Create the recipe used for testing enoughIngredients and useIngredients.
+		this.recipe = new Recipe();
+		this.recipe.setAmtChocolate("1");
+		this.recipe.setAmtCoffee("2");
+		this.recipe.setAmtMilk("3");
+		this.recipe.setAmtSugar("4");
 	}
 	
 	/*
@@ -505,5 +514,85 @@ public class InventoryTest extends TestCase {
 	public void testAddSugarPositiveInteger() throws Exception {
 		CuT.addSugar("1");
 		assertEquals("Sugar wasn't changed correctly.",16,this.CuT.getSugar());
+	}
+	
+	/*
+	 * Tests the enoughIngredients method with an empty recipe.
+	 */
+	public void testEnoughIngredientsEmptyRecipe() {
+		Recipe recipe = new Recipe();
+		assertTrue("Empty can't be made with inventory.",this.CuT.enoughIngredients(recipe));
+	}
+	
+	/*
+	 * Tests the enoughIngredients method with a recipe with too much chocolate.
+	 */
+	public void testEnoughIngredientsInsufficientChocolate() throws RecipeException {
+		this.recipe.setAmtChocolate("16");
+		assertFalse("Recipe can be made with insufficient chocolate.",this.CuT.enoughIngredients(this.recipe));
+	}
+	
+	/*
+	 * Tests the enoughIngredients method with a recipe with too much coffee.
+	 */
+	public void testEnoughIngredientsInsufficientCoffee() throws RecipeException {
+		this.recipe.setAmtCoffee("16");
+		assertFalse("Recipe can be made with insufficient coffee.",this.CuT.enoughIngredients(this.recipe));
+	}
+	
+	/*
+	 * Tests the enoughIngredients method with a recipe with too much milk.
+	 */
+	public void testEnoughIngredientsInsufficientMilk() throws RecipeException {
+		this.recipe.setAmtMilk("16");
+		assertFalse("Recipe can be made with insufficient milk.",this.CuT.enoughIngredients(this.recipe));
+	}
+	
+	/*
+	 * Tests the enoughIngredients method with a recipe with too much sugar.
+	 */
+	public void testEnoughIngredientsInsufficientSugar() throws RecipeException {
+		this.recipe.setAmtSugar("16");
+		assertFalse("Recipe can be made with insufficient sugar.",this.CuT.enoughIngredients(this.recipe));
+	}
+	
+
+	/*
+	 * Tests the enoughIngredients method with a recipe with just enough chocolate.
+	 */
+	public void testEnoughIngredientsJustSufficientChocolate() throws RecipeException {
+		this.recipe.setAmtChocolate("15");
+		assertTrue("Recipe can be made with just enough chocolate.",this.CuT.enoughIngredients(this.recipe));
+	}
+	
+	/*
+	 * Tests the enoughIngredients method with a recipe with just enough coffee.
+	 */
+	public void testEnoughIngredientsJustSufficientCoffee() throws RecipeException {
+		this.recipe.setAmtCoffee("15");
+		assertTrue("Recipe can be made with just enough coffee.",this.CuT.enoughIngredients(this.recipe));
+	}
+	
+	/*
+	 * Tests the enoughIngredients method with a recipe with just enough milk.
+	 */
+	public void testEnoughIngredientsJustSufficientMilk() throws RecipeException {
+		this.recipe.setAmtMilk("15");
+		assertTrue("Recipe can be made with just enough milk.",this.CuT.enoughIngredients(this.recipe));
+	}
+	
+	/*
+	 * Tests the enoughIngredients method with a recipe with just enough sugar.
+	 */
+	public void testEnoughIngredientsJustSufficientSugar() throws RecipeException {
+		this.recipe.setAmtSugar("15");
+		assertTrue("Recipe can be made with just enough sugar.",this.CuT.enoughIngredients(this.recipe));
+	}
+	
+	/*
+	 * Tests the enoughIngredients method with a recipe that requires less than the inventory contains.
+	 */
+	public void testEnoughIngredientsSufficientIngredients() throws RecipeException {
+		assertTrue("Recipe can't be made with enough incredients.",this.CuT.enoughIngredients(this.recipe));
 	}
 }
