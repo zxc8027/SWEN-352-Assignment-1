@@ -348,7 +348,7 @@ public class InventoryTest extends TestCase {
 	}
 
 	/*
-	 * Tests the addCoffee method with an empty string.
+	 * Tests the addMilk method with an empty string.
 	 */
 	public void testAddMilkEmptyString() throws Exception {
 		Inventory CuT = this.CuT;
@@ -425,5 +425,85 @@ public class InventoryTest extends TestCase {
 	public void testAddMilkPositiveInteger() throws Exception {
 		CuT.addMilk("1");
 		assertEquals("Milk wasn't changed correctly.",16,this.CuT.getMilk());
+	}
+	
+	/*
+	 * Tests the addSugar method with an empty string.
+	 */
+	public void testAddSugarEmptyString() throws Exception {
+		Inventory CuT = this.CuT;
+		assertInventoryException(new Callable() {
+			@Override
+			public Object call() throws Exception {
+				CuT.addSugar("");
+				return null;
+			}
+		});
+		
+		assertEquals("Sugar was modified.",15,this.CuT.getSugar());
+	}
+	
+	/*
+	 * Tests the addSugar method with a non-number string.
+	 */
+	public void testAddSugarNonNumberString() throws Exception {
+		Inventory CuT = this.CuT;
+		assertInventoryException(new Callable() {
+			@Override
+			public Object call() throws Exception {
+				CuT.addSugar("Test");
+				return null;
+			}
+		});
+		
+		assertEquals("Sugar was modified.",15,this.CuT.getSugar());
+	}
+	
+	/*
+	 * Tests the addSugar method with a float string.
+	 */
+	public void testAddSugarFloat() throws Exception {
+		Inventory CuT = this.CuT;
+		assertInventoryException(new Callable() {
+			@Override
+			public Object call() throws Exception {
+				CuT.addSugar("3.2");
+				return null;
+			}
+		});
+		
+		assertEquals("Sugar was modified.",15,this.CuT.getSugar());
+	}
+	
+	/*
+	 * Tests the addSugar method with a negative integer string.
+	 */
+	public void testAddSugarNegativeInteger() throws Exception {
+		Inventory CuT = this.CuT;
+		assertInventoryException(new Callable() {
+			@Override
+			public Object call() throws Exception {
+				CuT.addSugar("-1");
+				return null;
+			}
+		});
+		
+		assertEquals("Sugar was modified.",15,this.CuT.getSugar());
+	}
+	
+	/*
+	 * Tests the addSugar method with a zero string.
+	 */
+	public void testAddSugarZero() throws Exception {
+		CuT.addSugar("0");
+		assertEquals("Sugar was modified.",15,this.CuT.getSugar());
+	}
+
+	/*
+	 * Tests the addSugar method with a positive integer string.
+	 */
+	public void testAddSugarPositiveInteger() throws Exception {
+		CuT.addSugar("1");
+		assertEquals("Sugar wasn't changed correctly.",16,this.CuT.getSugar());
 	}
 }
