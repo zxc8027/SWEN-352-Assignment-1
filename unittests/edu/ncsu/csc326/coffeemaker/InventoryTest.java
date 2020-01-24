@@ -346,4 +346,84 @@ public class InventoryTest extends TestCase {
 		CuT.addCoffee("1");
 		assertEquals("Coffee wasn't changed correctly.",16,this.CuT.getCoffee());
 	}
+
+	/*
+	 * Tests the addCoffee method with an empty string.
+	 */
+	public void testAddMilkEmptyString() throws Exception {
+		Inventory CuT = this.CuT;
+		assertInventoryException(new Callable() {
+			@Override
+			public Object call() throws Exception {
+				CuT.addMilk("");
+				return null;
+			}
+		});
+		
+		assertEquals("Milk was modified.",15,this.CuT.getMilk());
+	}
+	
+	/*
+	 * Tests the addMilk method with a non-number string.
+	 */
+	public void testAddMilkNonNumberString() throws Exception {
+		Inventory CuT = this.CuT;
+		assertInventoryException(new Callable() {
+			@Override
+			public Object call() throws Exception {
+				CuT.addMilk("Test");
+				return null;
+			}
+		});
+		
+		assertEquals("Milk was modified.",15,this.CuT.getMilk());
+	}
+	
+	/*
+	 * Tests the addMilk method with a float string.
+	 */
+	public void testAddMilkFloat() throws Exception {
+		Inventory CuT = this.CuT;
+		assertInventoryException(new Callable() {
+			@Override
+			public Object call() throws Exception {
+				CuT.addMilk("3.2");
+				return null;
+			}
+		});
+		
+		assertEquals("Milk was modified.",15,this.CuT.getMilk());
+	}
+	
+	/*
+	 * Tests the addMilk method with a negative integer string.
+	 */
+	public void testAddMilkNegativeInteger() throws Exception {
+		Inventory CuT = this.CuT;
+		assertInventoryException(new Callable() {
+			@Override
+			public Object call() throws Exception {
+				CuT.addMilk("-1");
+				return null;
+			}
+		});
+		
+		assertEquals("Milk was modified.",15,this.CuT.getMilk());
+	}
+	
+	/*
+	 * Tests the addMilk method with a zero string.
+	 */
+	public void testAddMilkZero() throws Exception {
+		CuT.addMilk("0");
+		assertEquals("Milk was modified.",15,this.CuT.getMilk());
+	}
+
+	/*
+	 * Tests the addMilk method with a positive integer string.
+	 */
+	public void testAddMilkPositiveInteger() throws Exception {
+		CuT.addMilk("1");
+		assertEquals("Milk wasn't changed correctly.",16,this.CuT.getMilk());
+	}
 }
