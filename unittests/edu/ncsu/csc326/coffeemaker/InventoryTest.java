@@ -595,4 +595,143 @@ public class InventoryTest extends TestCase {
 	public void testEnoughIngredientsSufficientIngredients() throws RecipeException {
 		assertTrue("Recipe can't be made with enough incredients.",this.CuT.enoughIngredients(this.recipe));
 	}
+	
+	/*
+	 * Tests the useIngredients method with an empty recipe.
+	 */
+	public void testUseIngredientsEmptyRecipe() {
+		Recipe recipe = new Recipe();
+		assertTrue("Empty can't be made with inventory.",this.CuT.useIngredients(recipe));
+		
+		// Assert the correct ingredients were removed.
+		assertEquals("Chocolate was modified.",this.CuT.getChocolate(),15);
+		assertEquals("Coffee was modified.",this.CuT.getCoffee(),15);
+		assertEquals("Milk was modified.",this.CuT.getMilk(),15);
+		assertEquals("Sugar was modified.",this.CuT.getSugar(),15);
+	}
+	
+	/*
+	 * Tests the useIngredients method with not enough chocolate.
+	 */
+	public void testUseIngredientsNotEnoughChocolate() throws RecipeException {
+		this.recipe.setAmtChocolate("16");
+		assertFalse("Recipe can be made with not enough chocolate.",this.CuT.useIngredients(recipe));
+		
+		// Assert the correct ingredients were removed.
+		assertEquals("Chocolate was modified.",this.CuT.getChocolate(),15);
+		assertEquals("Coffee was modified.",this.CuT.getCoffee(),15);
+		assertEquals("Milk was modified.",this.CuT.getMilk(),15);
+		assertEquals("Sugar was modified.",this.CuT.getSugar(),15);
+	}
+	
+	/*
+	 * Tests the useIngredients method with not enough coffee.
+	 */
+	public void testUseIngredientsNotEnoughCoffee() throws RecipeException {
+		this.recipe.setAmtCoffee("16");
+		assertFalse("Recipe can be made with not enough coffee.",this.CuT.useIngredients(recipe));
+		
+		// Assert the correct ingredients were removed.
+		assertEquals("Chocolate was modified.",this.CuT.getChocolate(),15);
+		assertEquals("Coffee was modified.",this.CuT.getCoffee(),15);
+		assertEquals("Milk was modified.",this.CuT.getMilk(),15);
+		assertEquals("Sugar was modified.",this.CuT.getSugar(),15);
+	}
+	
+	/*
+	 * Tests the useIngredients method with not enough milk.
+	 */
+	public void testUseIngredientsNotEnoughMilk() throws RecipeException {
+		this.recipe.setAmtMilk("16");
+		assertFalse("Recipe can be made with not enough milk.",this.CuT.useIngredients(recipe));
+		
+		// Assert the correct ingredients were removed.
+		assertEquals("Chocolate was modified.",this.CuT.getChocolate(),15);
+		assertEquals("Coffee was modified.",this.CuT.getCoffee(),15);
+		assertEquals("Milk was modified.",this.CuT.getMilk(),15);
+		assertEquals("Sugar was modified.",this.CuT.getSugar(),15);
+	}
+	
+	/*
+	 * Tests the useIngredients method with not enough sugar.
+	 */
+	public void testUseIngredientsNotEnoughSugar() throws RecipeException {
+		this.recipe.setAmtSugar("16");
+		assertFalse("Recipe can be made with not enough sugar.",this.CuT.useIngredients(recipe));
+		
+		// Assert the correct ingredients were removed.
+		assertEquals("Chocolate was modified.",this.CuT.getChocolate(),15);
+		assertEquals("Coffee was modified.",this.CuT.getCoffee(),15);
+		assertEquals("Milk was modified.",this.CuT.getMilk(),15);
+		assertEquals("Sugar was modified.",this.CuT.getSugar(),15);
+	}
+	
+	/*
+	 * Tests the useIngredients method with just enough chocolate.
+	 */
+	public void testUseIngredientsJustEnoughChocolate() throws RecipeException {
+		this.recipe.setAmtChocolate("15");
+		assertTrue("Recipe can't be made with just enough chocolate.",this.CuT.useIngredients(recipe));
+		
+		// Assert the correct ingredients were removed.
+		assertEquals("Chocolate wasn't changed correctly.",this.CuT.getChocolate(),0);
+		assertEquals("Coffee wasn't changed correctly.",this.CuT.getCoffee(),13);
+		assertEquals("Milk wasn't changed correctly.",this.CuT.getMilk(),12);
+		assertEquals("Sugar wasn't changed correctly.",this.CuT.getSugar(),11);
+	}
+	
+	/*
+	 * Tests the useIngredients method with just enough coffee.
+	 */
+	public void testUseIngredientsJustEnoughCoffee() throws RecipeException {
+		this.recipe.setAmtCoffee("15");
+		assertTrue("Recipe can't be made with just enough coffee.",this.CuT.useIngredients(recipe));
+		
+		// Assert the correct ingredients were removed.
+		assertEquals("Chocolate wasn't changed correctly.",this.CuT.getChocolate(),14);
+		assertEquals("Coffee wasn't changed correctly.",this.CuT.getCoffee(),0);
+		assertEquals("Milk wasn't changed correctly.",this.CuT.getMilk(),12);
+		assertEquals("Sugar wasn't changed correctly.",this.CuT.getSugar(),11);
+	}
+	
+	/*
+	 * Tests the useIngredients method with just enough milk.
+	 */
+	public void testUseIngredientsJustEnoughMilk() throws RecipeException {
+		this.recipe.setAmtMilk("15");
+		assertTrue("Recipe can't be made with just enough milk.",this.CuT.useIngredients(recipe));
+		
+		// Assert the correct ingredients were removed.
+		assertEquals("Chocolate wasn't changed correctly.",this.CuT.getChocolate(),14);
+		assertEquals("Coffee wasn't changed correctly.",this.CuT.getCoffee(),13);
+		assertEquals("Milk wasn't changed correctly.",this.CuT.getMilk(),0);
+		assertEquals("Sugar wasn't changed correctly.",this.CuT.getSugar(),11);
+	}
+	
+	/*
+	 * Tests the useIngredients method with just enough sugar.
+	 */
+	public void testUseIngredientsJustEnoughSugar() throws RecipeException {
+		this.recipe.setAmtSugar("15");
+		assertTrue("Recipe can't be made with just enough sugar.",this.CuT.useIngredients(recipe));
+		
+		// Assert the correct ingredients were removed.
+		assertEquals("Chocolate wasn't changed correctly.",this.CuT.getChocolate(),14);
+		assertEquals("Coffee wasn't changed correctly.",this.CuT.getCoffee(),13);
+		assertEquals("Milk wasn't changed correctly.",this.CuT.getMilk(),12);
+		assertEquals("Sugar wasn't changed correctly.",this.CuT.getSugar(),0);
+	}
+	
+	/*
+	 * Tests the useIngredients method with more than enough ingredients.
+	 */
+	public void testUseIngredientsJustEnoughIngredients() throws RecipeException {
+		assertTrue("Recipe can't be made with enough ingredients.",this.CuT.useIngredients(recipe));
+		
+		// Assert the correct ingredients were removed.
+		assertEquals("Chocolate wasn't changed correctly.",this.CuT.getChocolate(),14);
+		assertEquals("Coffee wasn't changed correctly.",this.CuT.getCoffee(),13);
+		assertEquals("Milk wasn't changed correctly.",this.CuT.getMilk(),12);
+		assertEquals("Sugar wasn't changed correctly.",this.CuT.getSugar(),11);
+	}
 }
