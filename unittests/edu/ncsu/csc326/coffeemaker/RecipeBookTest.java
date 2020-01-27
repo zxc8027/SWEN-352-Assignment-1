@@ -192,29 +192,25 @@ class RecipeBookTest {
 		assertEquals(null, recipes[0]);
 	}
 	
-	@Test
-	void test_deleteNonExistentRecipe() {
-		
-	}
+
 	@Test
 	void test_deleteNoRecipesExist() {
-		
+		assertEquals(null, this.rb.deleteRecipe(0));
 	}
 	
 	@Test
-	void test_editRecipe() {
-		
+	void test_editRecipe() throws RecipeException {
+		assertEquals(true, this.rb.addRecipe(this.recipe));
+		this.recipe.setAmtChocolate("10");
+		assertEquals("Test Recipe", this.rb.editRecipe(0, this.recipe));
+		assertEquals(this.recipe.getName(), this.rb.getRecipes()[0].getName());
 	}
 	
 	@Test
 	void test_editNullRecipe() {
-		
+		assertEquals(null, this.rb.editRecipe(0, this.recipe));
 	}
 	
-	@Test
-	void test_editSameRecipe() {
-		
-	}
 	
 
 }
