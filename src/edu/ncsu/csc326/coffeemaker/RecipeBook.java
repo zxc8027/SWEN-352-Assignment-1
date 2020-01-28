@@ -24,7 +24,10 @@ public class RecipeBook {
 	}
 	
 	public synchronized boolean addRecipe(Recipe r) {
-		//Assume recipe doesn't exist in the array until 
+		if(r == null ) {
+			return false;
+		}
+ 		//Assume recipe doesn't exist in the array until 
 		//find out otherwise
 		boolean exists = false;
 		//Check that recipe doesn't already exist in array
@@ -57,7 +60,7 @@ public class RecipeBook {
 	public synchronized String deleteRecipe(int recipeToDelete) {
 		if (recipeArray[recipeToDelete] != null) {
 			String recipeName = recipeArray[recipeToDelete].getName();
-			recipeArray[recipeToDelete] = new Recipe();
+			recipeArray[recipeToDelete] = null;
 			return recipeName;
 		} else {
 			return null;
@@ -74,7 +77,7 @@ public class RecipeBook {
 	public synchronized String editRecipe(int recipeToEdit, Recipe newRecipe) {
 		if (recipeArray[recipeToEdit] != null) {
 			String recipeName = recipeArray[recipeToEdit].getName();
-			newRecipe.setName("");
+			newRecipe.setName(recipeName);
 			recipeArray[recipeToEdit] = newRecipe;
 			return recipeName;
 		} else {
